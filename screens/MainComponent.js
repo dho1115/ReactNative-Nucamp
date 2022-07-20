@@ -10,9 +10,9 @@ const Main = () => {
 
     return (
         <View>
-            <DirectoryScreen campsites={campsites} />
+            <DirectoryScreen campsites={campsites} onPress={(campsiteId) => setselectedCampsiteId(campsiteId)} />
             <CampsiteInfoScreen campsite = {
-                campsite.find(campsite => campsite.id === selectedCampsiteId)
+                campsites.find(campsite => campsite.id === selectedCampsiteId)
             } />
         </View>
     )

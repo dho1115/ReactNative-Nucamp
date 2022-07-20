@@ -5,7 +5,7 @@ const DirectoryScreen = (props) => {
     const renderDirectoryItem = ({ item: campsite }) => {
         console.log({ campsite })
         return(
-            <ListItem>
+            <ListItem onPress={() => props.onPress(campsite.id)}>
                 <Avatar source={ campsite.image } rounded />
                 <ListItem.Title>{ campsite.name }</ListItem.Title>
                 <ListItem.Subtitle>{ campsite.description }</ListItem.Subtitle>

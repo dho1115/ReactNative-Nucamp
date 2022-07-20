@@ -4,9 +4,10 @@ import { Card } from "react-native-elements";
 
 const RenderCampsite = ({ campsite }) => {
     if (campsite) {
+        console.log({ image: campsite.image })
         return(
             <Card containerStyle={{ padding: 0 }}>
-                <Card.Image src={{ campsite.image }}>
+                <Card.Image source={ campsite.image }>
                     <View style={{ justifyContent: 'center', flex: 1 }}>
                         <Text style={{
                             color: 'white',
