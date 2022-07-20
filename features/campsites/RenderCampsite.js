@@ -19,6 +19,8 @@ const RenderCampsite = ({ campsite }) => {
             </Card>
         )
     }
+
+    return <View />
 }
 
 export default RenderCampsite;
