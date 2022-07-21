@@ -5,7 +5,30 @@ import DirectoryScreen from './DirectoryScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackActions } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import Constants from 'expo-constants';
+import HomeScreen from './HomeScreen';
+
+const Drawer = createDrawerNavigator();
+
+const screenOptions = {
+    headerTintColor: 'whitesmoke',
+    headerStyle: { backgroundColor: 'maroon' }
+}
+
+const HomeNavigator = () => {
+    const Stack = createStackNavigator();
+
+    return (
+        <Stack.Navigator screenOptions={ screenOptions }>
+            <Stack.Screen
+                name='Home'
+                component={ HomeScreen }
+                options={{ title: 'Home' }}
+            />
+        </Stack.Navigator>
+    )
+}
 
 const DirectoryNavigator = () => {
     const Stack = createStackNavigator();
@@ -13,10 +36,7 @@ const DirectoryNavigator = () => {
     return (
         <Stack.Navigator
             initialRouteName='Directory'
-            screenOptions={{
-                headerStyle: { backgroundColor: 'maroon' },
-                headerTintColor: 'whitesmoke'
-            }}
+            screenOptions={ screenOptions }
         >
             <Stack.Screen
                 name='Directory'
@@ -36,7 +56,21 @@ const Main = () => {
 
     return (
         <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
-            <DirectoryNavigator />
+            <Drawer.Navigator
+                initialRouteName='Home'
+                drawerStyle={{ backgroundColor: 'lightseagreen' }}
+            >
+                <Drawer.Screen
+                    name='Home'
+                    component={ HomeNavigator }
+                    options={{ title: 'Home' }}
+                 />
+                 <Drawer.Screen
+                    name='Directory'
+                    component={ DirectoryNavigator }
+                    options={{ title: 'Directory' }}
+                />
+            </Drawer.Navigator>
         </View>
     )
 }
