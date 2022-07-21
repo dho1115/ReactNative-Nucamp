@@ -1,8 +1,13 @@
 import Main from './screens/MainComponent'
+import { NavigationContainer } from '@react-navication/native'
 
 export default function App() {
-  'use strict'
-  return ( <Main /> )
+
+  return (
+    <NavigationContainer>
+      <Main />
+    </NavigationContainer>
+  )
 }
 
 
