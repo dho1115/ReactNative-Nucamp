@@ -5,15 +5,16 @@ import DirectoryScreen from './DirectoryScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackActions } from '@react-navigation/native';
+import Constants from 'expo-constants';
 
 const DirectoryNavigator = () => {
-    const State = createStackNavigator();
+    const Stack = createStackNavigator();
 
     return (
         <Stack.Navigator
             initialRouteName='Directory'
             screenOptions={{
-                headerStyle: { backgroundColor: 'beige' },
+                headerStyle: { backgroundColor: 'maroon' },
                 headerTintColor: 'whitesmoke'
             }}
         >
@@ -23,7 +24,7 @@ const DirectoryNavigator = () => {
                 options={{ title: 'Campsite Directory.' }}
             />
             <Stack.Screen
-                name="CampsiteInfo"
+                name='CampsiteInfo'
                 component={CampsiteInfoScreen}
                 options={({ route }) => ({ title: route.params.campsite.name })}
             />
@@ -34,11 +35,8 @@ const DirectoryNavigator = () => {
 const Main = () => {
 
     return (
-        <View>
-            <DirectoryScreen campsites={campsites} onPress={(campsiteId) => setselectedCampsiteId(campsiteId)} />
-            <CampsiteInfoScreen campsite = {
-                campsites.find(campsite => campsite.id === selectedCampsiteId)
-            } />
+        <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
+            <DirectoryNavigator />
         </View>
     )
 }
