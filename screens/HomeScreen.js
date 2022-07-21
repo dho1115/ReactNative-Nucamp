@@ -15,14 +15,15 @@ const FeaturedItem = ({ item }) => {
                             color: 'whitesmoke',
                             textAlign: 'center',
                             fontSize: 17
-                        }}>{ item }</Text>
+                        }}>{ item.name }</Text>
                     </View>
                 </Card.Image>
+                <Text style={{ margin: 21 }}>{ item.description }</Text>
             </Card>
         )
     }
 
-    return
+    return <View />
 }
 
 const HomeScreen = () => {
@@ -30,9 +31,17 @@ const HomeScreen = () => {
     const [partners, setPartners] = useState(PARTNERS);
     const [promotions, setPromotions] = useState(PROMOTIONS);
 
+    const featCampsite = campsites.find(item => item.featured);
+    const featPartners = partners.find(item => item.featured);
+    const featPromotions = promotions.find(item => item.featured);
+
+
+
     return (
         <ScrollView>
-            <Text>The Home Screen.</Text>
+            <FeaturedItem item={ featCampsite } />
+            <FeaturedItem item={ featPartners } />
+            <FeaturedItem item={ featPromotions } />
         </ScrollView>
     )
 }
