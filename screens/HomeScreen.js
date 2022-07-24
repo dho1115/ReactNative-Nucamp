@@ -36,7 +36,6 @@ const HomeScreen = () => {
     const featPromotions = promotions.find(item => item.featured);
 
 
-
     return (
         <ScrollView>
             <FeaturedItem item={ featCampsite } />

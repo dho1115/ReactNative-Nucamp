@@ -8,6 +8,8 @@ import { StackActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Constants from 'expo-constants';
 import HomeScreen from './HomeScreen';
+import AboutNavigator from './AboutScreen';
+import ContactNavigator from './ContactScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,7 +26,7 @@ const HomeNavigator = () => {
             <Stack.Screen
                 name='Home'
                 component={ HomeScreen }
-                options={{ title: 'Home' }}
+                options={{ title: 'MY HOME PAGE.' }}
             />
         </Stack.Navigator>
     )
@@ -70,6 +72,16 @@ const Main = () => {
                     component={ DirectoryNavigator }
                     options={{ title: 'Directory' }}
                 />
+                <Drawer.Screen
+                    name="About"
+                    component={ AboutNavigator }
+                />
+                <Drawer.Screen
+                    name="Contact"
+                    options={{ title: "Contact Us." }}
+                    component={ ContactNavigator }
+                >
+                </Drawer.Screen>
             </Drawer.Navigator>
         </View>
     )
