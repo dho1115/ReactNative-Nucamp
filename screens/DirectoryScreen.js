@@ -8,6 +8,7 @@ const DirectoryScreen = ({ navigation }) => {
 
     const renderDirectoryItem = ({ item: campsite }) => {
         console.log({ campsite })
+
         return(
             <ListItem onPress={() => navigation.navigate('CampsiteInfo', { campsite })}>
                 <Avatar source={ campsite.image } rounded />

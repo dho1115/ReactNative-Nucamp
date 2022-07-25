@@ -1,6 +1,6 @@
 // import { useState } from 'react';
-import { Platform, View } from 'react-native';
-// import { CAMPSITES } from '../shared/campsites';
+import { Platform, View, Text } from 'react-native';
+import { CAMPSITES } from '../shared/campsites';
 import DirectoryScreen from './DirectoryScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,8 +8,8 @@ import { StackActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Constants from 'expo-constants';
 import HomeScreen from './HomeScreen';
-import AboutNavigator from './AboutScreen';
-import ContactNavigator from './ContactScreen';
+import AboutScreen from './AboutScreen';
+import ContactScreen from './ContactScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,7 +26,7 @@ const HomeNavigator = () => {
             <Stack.Screen
                 name='Home'
                 component={ HomeScreen }
-                options={{ title: 'MY HOME PAGE.' }}
+                options={{ title: 'MY HOME SCREEN.' }}
             />
         </Stack.Navigator>
     )
@@ -41,14 +41,41 @@ const DirectoryNavigator = () => {
             screenOptions={ screenOptions }
         >
             <Stack.Screen
-                name='Directory'
+                name='DEFAULT DIRECTORY NAME.'
                 component={DirectoryScreen}
-                options={{ title: 'Campsite Directory.' }}
+                options={{title: 'Directory Page.'}}
             />
             <Stack.Screen
                 name='CampsiteInfo'
                 component={CampsiteInfoScreen}
-                options={({ route }) => ({ title: route.params.campsite.name })}
+                options={ ({ route }) => ({ title: `${route.params.campsite.name}.` }) }
+            />
+        </Stack.Navigator>
+    )
+}
+
+const AboutNavigator = () => {
+    const Stack = createStackNavigator();
+
+    return (
+        <Stack.Navigator screenOptions={ screenOptions }>
+            <Stack.Screen
+                name='About Us Page.'
+                component={ AboutScreen }
+            />
+        </Stack.Navigator>
+    )
+}
+
+const ContactNavigator = () => {
+    const Stack = createStackNavigator();
+
+    return (
+        <Stack.Navigator screenOptions={ screenOptions }>
+            <Stack.Screen 
+                name="Contact"
+                options={{ title: "Contact Us" }}
+                component={ ContactScreen }
             />
         </Stack.Navigator>
     )
@@ -80,8 +107,7 @@ const Main = () => {
                     name="Contact"
                     options={{ title: "Contact Us." }}
                     component={ ContactNavigator }
-                >
-                </Drawer.Screen>
+                />
             </Drawer.Navigator>
         </View>
     )

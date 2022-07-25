@@ -23,7 +23,11 @@ const FeaturedItem = ({ item }) => {
         )
     }
 
-    return <View />
+    return (
+        <View>
+            <Text>NO ITEMS AVAILABLE TO VIEW....</Text>
+        </View>
+    )
 }
 
 const HomeScreen = () => {
