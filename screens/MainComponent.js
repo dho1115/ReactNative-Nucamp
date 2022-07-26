@@ -1,16 +1,17 @@
 // import { useState } from 'react';
-import { Platform, View, Text, StyleSheet } from 'react-native';
+import { Platform, View, Text, StyleSheet, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
 import DirectoryScreen from './DirectoryScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackActions } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import Constants from 'expo-constants';
 import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
 import ContactScreen from './ContactScreen';
+import logo from '../assets/images/logo.png';
 
 const Drawer = createDrawerNavigator();
 
@@ -133,12 +134,27 @@ const ContactNavigator = () => {
     )
 }
 
+const CustomDrawerContent = (props) => (
+    <DrawerContentScrollView {...props} >
+        <View style={ styles.drawerHeader }>
+            <View style={{ flex: 1 }}>
+                <Image source={ logo } style={ styles.drawerImage } />
+            </View>
+            <View style={{ flex: 2 }}>
+                <Text style={ styles.drawerHeaderText }>NuCamp.</Text>
+            </View>
+        </View>
+        <DrawerItemList {...props} labelStyle={{ fontWeight: "bold" }} />
+    </DrawerContentScrollView>
+)
+
 const Main = () => {
 
     return (
         <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
             <Drawer.Navigator
                 initialRouteName='Home'
+                drawerContent={ CustomDrawerContent }
                 drawerStyle={{ backgroundColor: 'lightseagreen' }}
             >
                 <Drawer.Screen
@@ -211,6 +227,24 @@ const Main = () => {
 }
 
 const styles = StyleSheet.create({
+    drawerHeader: {
+        backgroundColor: 'beige',
+        height: 140,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'row'
+    },
+    drawerHeaderText: {
+        color: 'maroon',
+        marginLeft: 10,
+        fontWeight: 'bold'
+    },
+    drawerImage: {
+        margin: 10,
+        height: 70,
+        width: 70
+    },
     stackIcon: {
         margin: 10,
         color: "white",
