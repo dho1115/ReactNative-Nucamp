@@ -16,8 +16,8 @@ const AboutScreen = () => {
                     <ListItem key={partner.id}>
                         <Avatar source={ partner.image } rounded />
                         <ListItem.Content>
-                            <ListItem.Title></ListItem.Title>
-                            <ListItem.Subtitle></ListItem.Subtitle>
+                            <ListItem.Title>{ partner.name }</ListItem.Title>
+                            <ListItem.Subtitle>{ partner.description }</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                 ))
