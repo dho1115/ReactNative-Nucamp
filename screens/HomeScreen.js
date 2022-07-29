@@ -2,8 +2,24 @@ import { Text, View, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import Loading from '../components/LoadingComponent';
 
-const FeaturedItem = ({ item }) => {
+
+const FeaturedItem = (props) => {
+    const { item } = props;
+
+    if (props.isLoading) {
+        return <Loading />
+    }
+
+    if (props.errMess) {
+        return(
+            <View>
+                <Text>{ props.errMess}</Text>
+            </View>
+        )
+    }
+
     if (item) {
         return (
             <Card containerStyle={{ padding: 0 }}>
@@ -21,6 +37,8 @@ const FeaturedItem = ({ item }) => {
         )
     }
 
+    console.log({ item })
+
     return (
         <View>
             <Text>NO ITEMS AVAILABLE TO VIEW....</Text>
@@ -29,7 +47,9 @@ const FeaturedItem = ({ item }) => {
 }
 
 const HomeScreen = () => {
-    const campsites = useSelector((state) => state.campsites);
+    const campsites = useSelector((state) => {
+        return state.campsites
+    });
     const promotions = useSelector((state) => state.promotions);
     const partners = useSelector((state) => state.partners);
 
@@ -39,9 +59,9 @@ const HomeScreen = () => {
 
     return (
         <ScrollView>
-            <FeaturedItem item={ featCampsite } />
-            <FeaturedItem item={ featPartners } />
-            <FeaturedItem item={ featPromotions } />
+            <FeaturedItem isLoading={campsites.isLoading} errMess={ campsites.errMess} item={featCampsite} />
+            <FeaturedItem isLoading={partners.isLoading} errMess={partners.errMess} item={featPartner} />
+            <FeaturedItem isLoading={promotions.isLoading} errMess={promotions.errMess} item={featPromotion} />
         </ScrollView>
     )
 }

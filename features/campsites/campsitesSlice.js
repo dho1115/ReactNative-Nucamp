@@ -5,6 +5,7 @@ export const fetchCampsites = createAsyncThunk(
     'campsites/fetchCampsites',
     async () => {
         const response = await fetch(baseUrl + 'campsites');
+        console.log(response.ok);
         return response.json();
     }
 );
