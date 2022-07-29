@@ -11,6 +11,7 @@ import Constants from 'expo-constants';
 import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
 import ContactScreen from './ContactScreen';
+import ReservationScreen from './ReservationScreen';
 import logo from '../assets/images/logo.png';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -155,6 +156,31 @@ const CustomDrawerContent = (props) => (
     </DrawerContentScrollView>
 )
 
+const ReservationNavigator = () => {
+    const Stack = createStackNavigator();
+
+    return(
+        <Stack.Navigator>
+            <Stack.Screen
+                name="reservation"
+                component={ReservationScreen}
+                title="Reservation Search."
+                options={({ navigation }) => ({
+                    title: 'Reservation Search',
+                    headerLeft: () => (
+                        <Icon
+                            name='tree'
+                            type='font-awesome'
+                            iconStyle={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
+            />
+        </Stack.Navigator>
+    )
+}
+
 const Main = () => {
     const dispatch = useDispatch();
 
@@ -206,6 +232,22 @@ const Main = () => {
                                 color={ color }
                             />
                         ) 
+                    }}
+                />
+                <Drawer.Screen
+                    name="Reserve Campsite"
+                    component={ ReservationNavigator }
+                    options={{
+                        title: "Reserve a Campsite(s).",
+                        drawerIcon: ({ color }) => (
+                            <Icon
+                                name='tree'
+                                type='font-awesome'
+                                size={24}
+                                iconStyle={{ width: 24 }}
+                                color={color}
+                            />
+                        )
                     }}
                 />
                 <Drawer.Screen
