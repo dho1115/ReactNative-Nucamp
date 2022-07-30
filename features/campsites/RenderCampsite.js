@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Modal } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { baseUrl } from "../../shared/baseUrl";
 
@@ -11,15 +11,11 @@ const RenderCampsite = (props) => {
             <Card containerStyle={styles.cardContainer}>
                 <Card.Image source={{ uri: baseUrl + campsite.image }}>
                     <View style={{ justifyContent: 'center', flex: 1 }}>
-                        <Text style={{
-                            color: 'white',
-                            textAlign: 'center',
-                            fontSize: 15
-                        }}>{ campsite.name }</Text>
+                        <Text style={styles.cardText}>{ campsite.name }</Text>
                     </View>
                 </Card.Image>
                 <Text style={{ margin: 17 }}>{ campsite.description }</Text>
-                <View>
+                <View style={styles.cardRow}>
                     <Icon
                         name={ props.isFavorite ? "heart" : "heart-o"}
                         type="font-awesome"
