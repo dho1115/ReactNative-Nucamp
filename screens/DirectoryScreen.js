@@ -3,7 +3,7 @@ import { FlatList, Text, View } from "react-native";
 import { Tile } from "react-native-elements";
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import Loading from '../Components/LoadingComponent';
+import Loading from '../components/LoadingComponent';
 
 // import { Avatar, ListItem } from "react-native-elements";
 // import { CAMPSITES } from '../shared/campsites'
