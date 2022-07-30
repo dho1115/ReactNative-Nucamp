@@ -6,8 +6,12 @@ import { toggleFavorite } from '../features/favorites/favoritesSlice';
 
 const CampsiteInfoScreen = ({ route }) => {
     const { campsite } = route.params;
+    console.log({ campsiteDetails: campsite })
 
     const [showModal, setShowModal] = useState(false)
+    const [rating, setRating] = useState(5);
+    const [author, setAuthor] = useState("");
+    const [text, setText] = useState("");
 
     const comments = useSelector(state => state.comments);
     const favorites = useSelector(state => state.favorites);
@@ -15,6 +19,19 @@ const CampsiteInfoScreen = ({ route }) => {
     const dispatch = useDispatch();
 
     console.log({ favorites })
+
+    const handleSubmit = () => {
+        const newComment = {
+            campsiteId: campsite.id,
+            rating,
+            author,
+            text
+        }
+
+        console.log({ newComment })
+
+        setShowModal(!showModal)
+    }
 
     const renderCommentItem = ({ item }) => {
         return(
