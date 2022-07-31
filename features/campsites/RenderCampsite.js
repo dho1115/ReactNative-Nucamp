@@ -3,6 +3,7 @@ import { Card, Icon } from "react-native-elements";
 import { baseUrl } from "../../shared/baseUrl";
 
 const RenderCampsite = (props) => {
+    console.log({ props })
     const { campsite } = props;
 
     if (campsite) {
@@ -11,11 +12,12 @@ const RenderCampsite = (props) => {
             <Card containerStyle={styles.cardContainer}>
                 <Card.Image source={{ uri: baseUrl + campsite.image }}>
                     <View style={{ justifyContent: 'center', flex: 1 }}>
-                        <Text style={styles.cardText}>{ campsite.name }</Text>
+                        <Text style={styles.cardText}>CAMPSITE NAME: { campsite.name }</Text>
                     </View>
                 </Card.Image>
                 <Text style={{ margin: 17 }}>{ campsite.description }</Text>
                 <View style={styles.cardRow}>
+                    {/* ===== START: HEART ICON ===== */}
                     <Icon
                         name={ props.isFavorite ? "heart" : "heart-o"}
                         type="font-awesome"
@@ -24,6 +26,9 @@ const RenderCampsite = (props) => {
                         reverse
                         onPress={() => props.isFavorite ? console.log("Already marked a favorite.") : props.markFavorite()}
                     />
+                    {/* ===== END: HEART ICON ===== */}
+
+                    {/* ===== START: PENCIL ICON ===== */}
                     <Icon
                         name="pencil"
                         type="font-awesome"
@@ -32,6 +37,7 @@ const RenderCampsite = (props) => {
                         reverse
                         onPress={() => props.onShowModal()}
                     />
+                    {/* ===== END: PENCIL ICON ===== */}
                  </View>           
            </Card>
         )
