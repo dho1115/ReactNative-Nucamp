@@ -4,13 +4,12 @@ import RenderCampsite from '../features/campsites/RenderCampsite';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '../features/favorites/favoritesSlice';
 import { Rating, Input, Icon } from 'react-native-elements';
+import { postComment } from '../features/comments/commentsSlice';
 
 const CampsiteInfoScreen = ({ route }) => {
     const { campsite } = route.params;
-    console.log({ campsiteDetails: campsite })
 
     const [showModal, setShowModal] = useState(false)
-    console.log({ showModal })
     const [rating, setRating] = useState(5);
     const [author, setAuthor] = useState("");
     const [text, setText] = useState("");
@@ -21,10 +20,6 @@ const CampsiteInfoScreen = ({ route }) => {
 
     const dispatch = useDispatch();
 
-    console.log({ favorites })
-
-    //https://snack.expo.dev/@davidhorph/code-challenge:-rne-rating-component
-
     const handleSubmit = () => {
         const newComment = {
             campsiteId: campsite.id,
@@ -32,9 +27,8 @@ const CampsiteInfoScreen = ({ route }) => {
             author,
             text
         }
-
-        console.log({ newComment })
-
+        dispatch(postComment(newComment));
+        // console.log({ newComment }); //This comment will be added to json-server
         setShowModal(!showModal)
     }
 
@@ -95,10 +89,11 @@ const CampsiteInfoScreen = ({ route }) => {
                     <Rating
                         showRating
                         startingValue={`${rating}`}
+                        ratingColor='green'
                         ratingCount={5}
-                        imageSize="40"
+                        imageSize={40}
                         onFinishRating={ rating => setRating(rating) }
-                        style={{paddingVertical: 10, backgroundColor: "crimson"}}
+                        style={{paddingVertical: 10, backgroundColor: "ivory"}}
                     />
                     <Input
                         placeholder="Author"
@@ -106,8 +101,8 @@ const CampsiteInfoScreen = ({ route }) => {
                             <Icon
                             name='user-o'
                             type="font-awesome"
-                            size={25}
-                            color='lightseagreen'
+                            size={35}
+                            color='maroon'
                             />
                         }
                         leftIconContainerStyle={{ paddingRight: 9 }}
@@ -120,8 +115,8 @@ const CampsiteInfoScreen = ({ route }) => {
                             <Icon
                                 name='comment'
                                 type="font-awesome"
-                                size={25}
-                                color='maroon'
+                                size={35}
+                                color='forestgreen'
                             />
                         }
                         leftIconContainerStyle={{ paddingRight: 9 }}

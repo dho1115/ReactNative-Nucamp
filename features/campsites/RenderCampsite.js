@@ -12,7 +12,7 @@ const RenderCampsite = (props) => {
             <Card containerStyle={styles.cardContainer}>
                 <Card.Image source={{ uri: baseUrl + campsite.image }}>
                     <View style={{ justifyContent: 'center', flex: 1 }}>
-                        <Text style={styles.cardText}>CAMPSITE NAME: { campsite.name }</Text>
+                        <Text style={styles.cardText}>{ campsite.name }</Text>
                     </View>
                 </Card.Image>
                 <Text style={{ margin: 17 }}>{ campsite.description }</Text>
