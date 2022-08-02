@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 import Loading from '../components/LoadingComponent.js';
 import { baseUrl } from '../shared/baseUrl';
@@ -20,7 +20,16 @@ const FavoritesScreen = ({ navigation }) => {
                 <View style={ styles.deleteView }>
                     <TouchableOpacity
                         style={ styles.deleteTouchable }
-                        onPress= {() => dispatch(toggleFavorite(campsite.id))}
+                        // onPress= {() => dispatch(toggleFavorite(campsite.id))}
+                        onPress= {() => Alert.alert(
+                            'ARE YOU SURE?', 
+                            `Deleting ${campsite.name} cannot be reversed!`,
+                            [
+                                { text: 'CANCEL', onPress: () => console.log("Deletion process cancelled.") },
+                                { text: 'YES, I AM SURE.', onPress: () => dispatch(toggleFavorite(campsite.id)) }
+                            ],
+                            { cancelable: false }
+                        )}
                     >
                         <Text style={ styles.deleteText}>DELETE.</Text>
                     </TouchableOpacity>
