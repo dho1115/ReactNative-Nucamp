@@ -8,6 +8,7 @@ import { postComment } from '../features/comments/commentsSlice';
 
 const CampsiteInfoScreen = ({ route }) => {
     const { campsite } = route.params;
+    console.log({ route, campsite })
 
     const [showModal, setShowModal] = useState(false)
     const [rating, setRating] = useState(5);

@@ -1,9 +1,9 @@
 import { ScrollView, Text } from "react-native"
-import { createStackNavigator } from "@react-navigation/stack";
+// import { createStackNavigator } from "@react-navigation/stack";
 import { Card } from 'react-native-elements';
 
 const ContactScreen = () => {
-    const Stack = createStackNavigator();
+    // const Stack = createStackNavigator();
     return (
         <ScrollView style={{ backgroundColor: 'bisque' }}>
             <Card wrapperStyle={{ margin: 20 }}>

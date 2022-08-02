@@ -19,6 +19,7 @@ import { fetchPartners } from '../features/partners/partnersSlice';
 import { fetchCampsites } from '../features/campsites/campsitesSlice';
 import { fetchPromotions } from '../features/promotions/promotionsSlice';
 import { fetchComments } from '../features/comments/commentsSlice';
+import FavoritesScreen from './FavoritesScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -27,6 +28,8 @@ const screenOptions = {
     headerTintColor: 'whitesmoke',
     headerStyle: { backgroundColor: 'maroon' }
 }
+
+//===== START ALL STACK.NAVIGATORS & STACK.SCREENS. =====
 
 const HomeNavigator = () => {
     const Stack = createStackNavigator();
@@ -43,7 +46,10 @@ const HomeNavigator = () => {
                             name="home"
                             type="font-awesome"
                             iconStyle={ styles.stackIcon }
-                            onPress = { () => navigation.toggleDrawer() }
+                            onPress = { () => {
+                                console.log("Will toggle drawer from home page.")
+                                navigation.toggleDrawer()
+                            }}
                         />
                     ) 
                 })}
@@ -71,7 +77,10 @@ const DirectoryNavigator = () => {
                                 name="list"
                                 type="font-awesome"
                                 iconStyle={ styles.stackIcon }
-                                onPress={() => navigation.toggleDrawer()}
+                                onPress={() => {
+                                    console.log("Campsite Directory Will Toggle Drawer...")
+                                    navigation.toggleDrawer()
+                                }}
                             />
                         )
                     }
@@ -131,7 +140,10 @@ const ContactNavigator = () => {
                                     name="address-card"
                                     type="font-awesome"
                                     iconStyle={styles.stackIcon}
-                                    onPress={() => navigation.toggleDrawer()}
+                                    onPress={() => {
+                                        console.log("Will toggle drawer from Contact Us.");
+                                        navigation.toggleDrawer()
+                                    }}
                                 />
                             )
                         }
@@ -141,6 +153,8 @@ const ContactNavigator = () => {
         </Stack.Navigator>
     )
 }
+
+//===== END ALL STACK.NAVIGATORS & STACK.SCREENS. =====
 
 const CustomDrawerContent = (props) => (
     <DrawerContentScrollView {...props} >
@@ -170,6 +184,31 @@ const ReservationNavigator = () => {
                     headerLeft: () => (
                         <Icon
                             name='tree'
+                            type='font-awesome'
+                            iconStyle={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
+            />
+        </Stack.Navigator>
+    )
+}
+
+const FavoritesNavigator = () => {
+    const Stack = createStackNavigator();
+
+    return(
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Favorites"
+                component={ FavoritesScreen }
+                title="Campsites Marked as Favorites."
+                options={({ navigation }) => ({
+                    title: 'Favorites',
+                    headerLeft: () => (
+                        <Icon
+                            name='heart'
                             type='font-awesome'
                             iconStyle={styles.stackIcon}
                             onPress={() => navigation.toggleDrawer()}
@@ -251,6 +290,22 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
+                    name="Favorites Navigator"
+                    component={ FavoritesNavigator }
+                    options={{
+                        title: "Favorite Campsites List.",
+                        drawerIcon: ({ color }) => (
+                            <Icon
+                                name='heart'
+                                type='font-awesome'
+                                size={25}
+                                iconStyle={{ width: 24 }}
+                                color={color}
+                            />
+                        )
+                    }}
+                />
+                <Drawer.Screen
                     name="About"
                     component={ AboutNavigator }
                     options={{
@@ -309,7 +364,8 @@ const styles = StyleSheet.create({
     stackIcon: {
         margin: 10,
         color: "white",
-        fontSize: 25
+        fontSize: 25,
+        backgroundColor: 'maroon'
     }
 })
 
