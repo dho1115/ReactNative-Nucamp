@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Modal } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { baseUrl } from "../../shared/baseUrl";
+import * as Animatable from 'react-native-animatable'
 
 const RenderCampsite = (props) => {
     console.log({ props })

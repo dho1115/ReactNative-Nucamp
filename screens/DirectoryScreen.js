@@ -4,6 +4,7 @@ import { Tile } from "react-native-elements";
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from '../components/LoadingComponent';
+import * as Animatable from 'react-native-animatable'
 
 // import { Avatar, ListItem } from "react-native-elements";
 // import { CAMPSITES } from '../shared/campsites'
