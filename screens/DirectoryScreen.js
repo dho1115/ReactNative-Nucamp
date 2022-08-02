@@ -28,7 +28,13 @@ const DirectoryScreen = ({ navigation }) => {
         console.log({ campsite })
 
         return(
-            <Tile onPress={() => navigation.navigate('CampsiteInfo', { campsite })} title={ campsite.name } caption={ campsite.description} featured imageSrc={{ uri: baseUrl + campsite.image }} />
+            <Animatable.View
+                animation='fadeInRightBig'
+                duration={1900}
+                delay={1700}
+            >
+                <Tile onPress={() => navigation.navigate('CampsiteInfo', { campsite })} title={ campsite.name } caption={ campsite.description} featured imageSrc={{ uri: baseUrl + campsite.image }} />
+            </Animatable.View>
         )
     }
 

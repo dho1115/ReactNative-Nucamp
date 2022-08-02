@@ -10,37 +10,43 @@ const RenderCampsite = (props) => {
     if (campsite) {
         console.log({ image: campsite.image })
         return(
-            <Card containerStyle={styles.cardContainer}>
-                <Card.Image source={{ uri: baseUrl + campsite.image }}>
-                    <View style={{ justifyContent: 'center', flex: 1 }}>
-                        <Text style={styles.cardText}>{ campsite.name }</Text>
-                    </View>
-                </Card.Image>
-                <Text style={{ margin: 17 }}>{ campsite.description }</Text>
-                <View style={styles.cardRow}>
-                    {/* ===== START: HEART ICON ===== */}
-                    <Icon
-                        name={ props.isFavorite ? "heart" : "heart-o"}
-                        type="font-awesome"
-                        color="crimson"
-                        raised
-                        reverse
-                        onPress={() => props.isFavorite ? console.log("Already marked a favorite.") : props.markFavorite()}
-                    />
-                    {/* ===== END: HEART ICON ===== */}
+            <Animatable.View
+                animation='fadeInDownBig'
+                duration={1700}
+                delay={1500}
+            >
+                <Card containerStyle={styles.cardContainer}>
+                    <Card.Image source={{ uri: baseUrl + campsite.image }}>
+                        <View style={{ justifyContent: 'center', flex: 1 }}>
+                            <Text style={styles.cardText}>{ campsite.name }</Text>
+                        </View>
+                    </Card.Image>
+                    <Text style={{ margin: 17 }}>{ campsite.description }</Text>
+                    <View style={styles.cardRow}>
+                        {/* ===== START: HEART ICON ===== */}
+                        <Icon
+                            name={ props.isFavorite ? "heart" : "heart-o"}
+                            type="font-awesome"
+                            color="crimson"
+                            raised
+                            reverse
+                            onPress={() => props.isFavorite ? console.log("Already marked a favorite.") : props.markFavorite()}
+                        />
+                        {/* ===== END: HEART ICON ===== */}
 
-                    {/* ===== START: PENCIL ICON ===== */}
-                    <Icon
-                        name="pencil"
-                        type="font-awesome"
-                        color="#5637DD"
-                        raised
-                        reverse
-                        onPress={() => props.onShowModal()}
-                    />
-                    {/* ===== END: PENCIL ICON ===== */}
-                 </View>           
-           </Card>
+                        {/* ===== START: PENCIL ICON ===== */}
+                        <Icon
+                            name="pencil"
+                            type="font-awesome"
+                            color="#5637DD"
+                            raised
+                            reverse
+                            onPress={() => props.onShowModal()}
+                        />
+                        {/* ===== END: PENCIL ICON ===== */}
+                    </View>           
+                </Card>
+           </Animatable.View>
         )
     }
 

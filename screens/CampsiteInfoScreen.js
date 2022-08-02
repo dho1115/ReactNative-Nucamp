@@ -61,24 +61,30 @@ const CampsiteInfoScreen = ({ route }) => {
 
     return (
         <>
-            <FlatList
-                data = { comments.commentsArray.filter(comment => comment.campsiteId === campsite.id) }
-                renderItem = { renderCommentItem }
-                keyExtractor = { item => item.id.toString() }
-                contentContainerStyle = {{ marginHorizontal: 20, paddingVertical: 20 }}
-                ListHeaderComponent = {
-                    <>
-                        <RenderCampsite 
-                            campsite={ campsite } 
-                            isFavorite={ favorites.includes(campsite.id) } markFavorite={() => dispatch(toggleFavorite(campsite.id))} 
-                            onShowModal={() => setShowModal(!showModal)} 
-                            onSetBoolean={() => setBoolean(!boolean)}
-                            boolean={boolean}
-                        />
-                        <Text style={ styles.commentsTitle }>Comments</Text>
-                    </>
-                }
-            />
+            <Animatable.View
+                animation="fadeInUp"
+                duration={1700}
+                delay={1500}
+            >
+                <FlatList
+                    data = { comments.commentsArray.filter(comment => comment.campsiteId === campsite.id) }
+                    renderItem = { renderCommentItem }
+                    keyExtractor = { item => item.id.toString() }
+                    contentContainerStyle = {{ marginHorizontal: 20, paddingVertical: 20 }}
+                    ListHeaderComponent = {
+                        <>
+                            <RenderCampsite 
+                                campsite={ campsite } 
+                                isFavorite={ favorites.includes(campsite.id) } markFavorite={() => dispatch(toggleFavorite(campsite.id))} 
+                                onShowModal={() => setShowModal(!showModal)} 
+                                onSetBoolean={() => setBoolean(!boolean)}
+                                boolean={boolean}
+                            />
+                            <Text style={ styles.commentsTitle }>Comments</Text>
+                        </>
+                    }
+                />
+            </Animatable.View>
             
             {/* START: MODAL ACTION WHEN PENCIL ICON CLICKED. */}
             <Modal
