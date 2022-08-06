@@ -21,9 +21,8 @@ const FavoritesScreen = ({ navigation }) => {
                 <View style={ styles.deleteView }>
                     <TouchableOpacity
                         style={ styles.deleteTouchable }
-                        // onPress= {() => dispatch(toggleFavorite(campsite.id))}
                         onPress= {() => Alert.alert(
-                            'ARE YOU SURE?', 
+                            "ARE YOU SURE?", 
                             `Deleting ${campsite.name} cannot be reversed!`,
                             [
                                 { text: 'CANCEL', onPress: () => console.log("Deletion process cancelled.") },
@@ -70,8 +69,8 @@ const FavoritesScreen = ({ navigation }) => {
             delay={1900}
         >
             <FlatList
-                data={ campsitesArray.filter((campsite) => favorites.includes(campsite.id))}
-                renderItem={ renderFavoriteItem }
+                data={campsitesArray.filter((campsite) => favorites.includes(campsite.id))}
+                renderItem={renderFavoriteItem}
                 keyExtractor={(item) => item.id.toString()}
             />
         </Animatable.View>

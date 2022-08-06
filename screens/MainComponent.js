@@ -71,7 +71,7 @@ const DirectoryNavigator = () => {
                 component={DirectoryScreen}
                 options={({ navigation }) => (
                     {
-                        title: 'Campsite Directory',
+                        title: 'Campsite Directory', //This will show after you click the 'Campsite Directory' in the drawer.
                         headerLeft: () => (
                             <Icon
                                 name="list"
@@ -154,22 +154,6 @@ const ContactNavigator = () => {
     )
 }
 
-//===== END ALL STACK.NAVIGATORS & STACK.SCREENS. =====
-
-const CustomDrawerContent = (props) => (
-    <DrawerContentScrollView {...props} >
-        <View style={ styles.drawerHeader }>
-            <View style={{ flex: 1 }}>
-                <Image source={ logo } style={ styles.drawerImage } />
-            </View>
-            <View style={{ flex: 2 }}>
-                <Text style={ styles.drawerHeaderText }>NuCamp.</Text>
-            </View>
-        </View>
-        <DrawerItemList {...props} labelStyle={{ fontWeight: "bold" }} />
-    </DrawerContentScrollView>
-)
-
 const ReservationNavigator = () => {
     const Stack = createStackNavigator();
 
@@ -220,6 +204,22 @@ const FavoritesNavigator = () => {
     )
 }
 
+//===== END ALL STACK.NAVIGATORS & STACK.SCREENS. =====
+
+const CustomDrawerContent = (props) => (
+    <DrawerContentScrollView {...props} >
+        <View style={ styles.drawerHeader }>
+            <View style={{ flex: 1 }}>
+                <Image source={ logo } style={ styles.drawerImage } />
+            </View>
+            <View style={{ flex: 2 }}>
+                <Text style={ styles.drawerHeaderText }>NuCamp.</Text>
+            </View>
+        </View>
+        <DrawerItemList {...props} labelStyle={{ fontWeight: "bold" }} />
+    </DrawerContentScrollView>
+)
+
 const Main = () => {
     const dispatch = useDispatch();
 
@@ -235,7 +235,8 @@ const Main = () => {
 
 
     return (
-        <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
+        <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>        
+            {/* START: Drawer.Navigator (DRAWER NAVIGATOR) */}
             <Drawer.Navigator
                 initialRouteName='Home'
                 drawerContent={ CustomDrawerContent }
@@ -245,7 +246,7 @@ const Main = () => {
                     name='Home'
                     component={ HomeNavigator }
                     options={{ 
-                        title: 'Home',
+                        title: 'Home Page',
                         drawerIcon: ({ color }) => (
                             <Icon
                                 name="home"
@@ -256,8 +257,8 @@ const Main = () => {
                             />
                         ) 
                     }}
-                 />
-                 <Drawer.Screen
+                />
+                <Drawer.Screen
                     name='Directory'
                     component={ DirectoryNavigator }
                     options={{ 
@@ -338,6 +339,7 @@ const Main = () => {
                     component={ ContactNavigator }
                 />
             </Drawer.Navigator>
+            {/* END: Drawer.Navigator (DRAWER NAVIGATOR) */}
         </View>
     )
 }

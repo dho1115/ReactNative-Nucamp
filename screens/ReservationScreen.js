@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Text, View, ScrollView, StyleSheet, Switch, Button, Modal } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Switch, Button, Modal, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as Animatable from 'react-native-animatable'
 
 const ReservationScreen = () => {
     const [campers, setCampers] = useState(1);
@@ -16,10 +17,26 @@ const ReservationScreen = () => {
         setDate(currentDate);
     }
 
+    // const handleReservation = () => {
+    //     console.log({ campers, hikeIn, date, showCalendar });
+    //     setShowModal(!showModal)
+    // }
+
+    //===== START: UNCOMMENT HANDLE RESERVATION Alert.alert() =====
     const handleReservation = () => {
         console.log({ campers, hikeIn, date, showCalendar });
-        setShowModal(!showModal)
+        Alert.alert(
+            `Begin Search?`,
+            `Number of Campers: ${campers}.\nHike In? ${hikeIn}.\nDate: ${date}`,
+            [
+                { text: 'CANCEL', onPress: () => console.log("RESERVATION IS CANCELLED.") },
+                { text: 'OK.', onPress: () => console.log("OK is logged.") }
+            ],
+            { cancelable: false }
+
+        )
     }
+    //===== END: UNCOMMENT HANDLE RESERVATION Alert.alert() =====
 
     const resetForm = () => {
         setCampers(1);
@@ -30,60 +47,68 @@ const ReservationScreen = () => {
 
     return (
         <ScrollView>
-            <View style={ styles.formRow }>
-                <Text style={ styles.formLabel }>Number of Campers:</Text>
-                <Picker
-                    style={ styles.formItem }
-                    selectedValue={ campers }
-                    onValueChange={(itemValue) => setCampers(itemValue)}
-                >
-                    <Picker.Item label='1' value={1} />
-                    <Picker.Item label='2' value={2} />
-                    <Picker.Item label='3' value={3} />
-                    <Picker.Item label='4' value={4} />
-                    <Picker.Item label='5' value={5} />
-                    <Picker.Item label='6' value={6} />
-                </Picker>
-            </View>
-            <View style={ styles.formRow }>
-                <Text style={ styles.formLabel }>Hike In?</Text>
-                <Switch 
-                    style={ styles.formItem }
-                    value={ hikeIn }
-                    trackColor={{ true: 'red', false: null}}
-                    onValueChange={(value) => setHikeIn(value)}
-                />
-            </View>
-            <View style={ styles.formRow }>
-                <Text style={ styles.formLabel }></Text>
-                <Button
-                    onPress={() => {
-                        console.log(`About to set show calendar to: ${showCalendar}.`)
-                        setShowCalendar(!showCalendar)
-                        console.log({ showCalendar })
-                    }}
-                    title={date.toLocaleDateString(`en-US`)}
-                    color='purple'
-                    accessibilityLabel='Tap me to select a reservation date.'
-                />
-            </View>
-                {showCalendar && (
-                    <DateTimePicker
-                        style={styles.formItem}
-                        value={date}
-                        mode='date'
-                        display='default'
-                        onChange={onDateChange}
+            <Animatable.View
+                animation='zoomIn'
+                duration={2500}
+                delay={1000}
+            >
+                <View style={ styles.formRow }>
+                    <Text style={ styles.formLabel }>Number of Campers:</Text>
+                    <Picker
+                        style={ styles.formItem }
+                        selectedValue={ campers }
+                        onValueChange={(itemValue) => setCampers(itemValue)}
+                    >
+                        <Picker.Item label='1' value={1} />
+                        <Picker.Item label='2' value={2} />
+                        <Picker.Item label='3' value={3} />
+                        <Picker.Item label='4' value={4} />
+                        <Picker.Item label='5' value={5} />
+                        <Picker.Item label='6' value={6} />
+                    </Picker>
+                </View>
+                <View style={ styles.formRow }>
+                    <Text style={ styles.formLabel }>Hike In?</Text>
+                    <Switch 
+                        style={ styles.formItem }
+                        value={ hikeIn }
+                        trackColor={{ true: 'red', false: null}}
+                        onValueChange={(value) => setHikeIn(value)}
                     />
-                )}
-            <View style={ styles.formRow }>
-                <Button
-                    onPress={() => handleReservation()}
-                    title="SEARCH AVAILABILITY"
-                    color="red"
-                    accessibilityLabel="Tap me to search for available campsties to reserve."
-                />
-            </View>
+                </View>
+                <View style={ styles.formRow }>
+                    <Text style={ styles.formLabel }></Text>
+                    <Button
+                        onPress={() => {
+                            console.log(`About to set show calendar to: ${showCalendar}.`)
+                            setShowCalendar(!showCalendar)
+                            console.log({ showCalendar })
+                        }}
+                        title={date.toLocaleDateString(`en-US`)}
+                        color='purple'
+                        accessibilityLabel='Tap me to select a reservation date.'
+                    />
+                </View>
+                    {showCalendar && (
+                        <DateTimePicker
+                            style={styles.formItem}
+                            value={date}
+                            mode='date'
+                            display='default'
+                            onChange={onDateChange}
+                        />
+                    )}
+                <View style={ styles.formRow }>
+                    <Button
+                        onPress={() => handleReservation()}
+                        title="SEARCH AVAILABILITY"
+                        color="red"
+                        accessibilityLabel="Tap me to search for available campsties to reserve."
+                    />
+                </View>
+            </Animatable.View>
+
+            {/*===== START: REMOVE MODAL BETWEEN COMMENTS ===== */}
             <Modal
                 animationType='slide'
                 transparent={ false }
@@ -110,11 +135,13 @@ const ReservationScreen = () => {
                                 resetForm()
                             }
                         }
-                        title="close"
+                        title="CLOSE THIS MODAL"
                         color="orange"
                     />
                 </View>
             </Modal>
+            {/*===== END: REMOVE MODAL BETWEEN COMMENTS =====*/}
+
         </ScrollView>
     )
 }
