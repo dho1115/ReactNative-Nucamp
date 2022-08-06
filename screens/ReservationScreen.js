@@ -22,7 +22,7 @@ const ReservationScreen = () => {
     //     setShowModal(!showModal)
     // }
 
-    //===== START: UNCOMMENT HANDLE RESERVATION Alert.alert() =====
+    //===== START: HANDLE RESERVATION Alert.alert() =====
     const handleReservation = () => {
         console.log({ campers, hikeIn, date, showCalendar });
         Alert.alert(
@@ -36,7 +36,7 @@ const ReservationScreen = () => {
 
         )
     }
-    //===== END: UNCOMMENT HANDLE RESERVATION Alert.alert() =====
+    //===== END: HANDLE RESERVATION Alert.alert() =====
 
     const resetForm = () => {
         setCampers(1);
