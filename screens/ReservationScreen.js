@@ -26,7 +26,11 @@ const ReservationScreen = () => {
             `Number of Campers: ${campers}.\nHike In? ${hikeIn}.\nDate: ${date}`,
             [
                 { text: 'CANCEL', onPress: () => console.log("RESERVATION IS CANCELLED.") },
-                { text: 'OK.', onPress: () => console.log("OK is logged.") }
+
+                { text: 'OK.', onPress: () => {
+                    presentLocalNotification(date.toLocaleDateString('en-US'));
+                    console.log("OK is logged.");
+                } }
             ],
             { cancelable: false }
 
@@ -44,9 +48,11 @@ const ReservationScreen = () => {
     const presentLocalNotification = async (reservationDate) => {
         const sendNotification = () => {
             Notifications.setNotificationHandler({
-                shouldShowAlert: true,
-                shouldPlaySound: true,
-                shouldSetBadge: true
+                handleNotification: async () => ({
+                    shouldShowAlert: true,
+                    shouldPlaySound: true,
+                    shouldSetBadge: true
+                })
             });
 
             Notifications.scheduleNotificationAsync({
@@ -59,6 +65,14 @@ const ReservationScreen = () => {
         }
 
         let permissions = await Notifications.getPermissionsAsync()
+
+        if (!permissions.granted) {
+            permissions = await Notifications.requestPermissionsAsync();
+        }
+
+        if (permissions.granted) {
+            sendNotification()
+        }
     }
 
     return (
