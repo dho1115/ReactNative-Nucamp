@@ -1,10 +1,18 @@
 import { ScrollView, Text } from "react-native"
 // import { createStackNavigator } from "@react-navigation/stack";
-import { Card } from 'react-native-elements';
-import * as Animatable from 'react-native-animatable'
+import { Card, Button, Icon } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
+import * as MailComposer from 'expo-mail-composer';
+
 
 const ContactScreen = () => {
-    // const Stack = createStackNavigator();
+    const sendMail = () => {
+        MailComposer.composeAsync({
+            recipients: ['campsites@nucamp.co', 'davidhorph@gmail.com'],
+            subject: 'Hello from NuCamp!!!',
+            body: 'Welcome to Nucamp... we are so glad you can join us. Enjoy!'
+        })
+    }
     return (
         <ScrollView style={{ backgroundColor: 'bisque' }}>
             <Animatable.View
@@ -21,6 +29,19 @@ const ContactScreen = () => {
                     <Text></Text>
                     <Text>Phone: 1-206-555-1234</Text>
                     <Text>Email: campsites@nucamp.co</Text>
+                    <Button
+                        title="SEND NEW EMAIL."
+                        buttonStyle={{backgroundColor: 'maroon', margin: 35}}
+                        icon = {
+                            <Icon
+                                name="envelope-o"
+                                type="font-awesome"
+                                color='crimson'
+                                iconStyle={{marginRight: 9}}
+                            />
+                        }
+                        onPress={() => sendMail()}
+                    />
                 </Card>
             </Animatable.View>
         </ScrollView>
