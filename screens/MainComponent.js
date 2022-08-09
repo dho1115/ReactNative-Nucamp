@@ -20,6 +20,7 @@ import { fetchCampsites } from '../features/campsites/campsitesSlice';
 import { fetchPromotions } from '../features/promotions/promotionsSlice';
 import { fetchComments } from '../features/comments/commentsSlice';
 import FavoritesScreen from './FavoritesScreen';
+import LoginScreen from './LoginScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -204,6 +205,30 @@ const FavoritesNavigator = () => {
     )
 }
 
+const LoginNavigator = () => {
+    const Stack = createStackNavigator();
+
+    return(
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Login"
+                component={ LoginScreen }
+                options={({ navigation }) => ({
+                    title: 'Favorites',
+                    headerLeft: () => (
+                        <Icon
+                            name='sign-in'
+                            type='font-awesome'
+                            iconStyle={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
+            />
+        </Stack.Navigator>
+    )
+}
+
 //===== END ALL STACK.NAVIGATORS & STACK.SCREENS. =====
 
 const CustomDrawerContent = (props) => (
@@ -242,6 +267,22 @@ const Main = () => {
                 drawerContent={ CustomDrawerContent }
                 drawerStyle={{ backgroundColor: 'lightseagreen' }}
             >
+                <Drawer.Screen
+                    name='Login'
+                    component={ LoginNavigator }
+                    options={{ 
+                        title: 'Login',
+                        drawerIcon: ({ color }) => (
+                            <Icon
+                                name='sign-in'
+                                type="font-awesome"
+                                size={ 25 }
+                                iconStyle={{ width: 24 }}
+                                color={ color }
+                            />
+                        ) 
+                    }}
+                />
                 <Drawer.Screen
                     name='Home'
                     component={ HomeNavigator }

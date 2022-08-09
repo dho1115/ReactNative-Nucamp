@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Switch, Button, Modal, Alert } from
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Animatable from 'react-native-animatable'
+import * as Notifications from 'expo-notifications'
 
 const ReservationScreen = () => {
     const [campers, setCampers] = useState(1);
@@ -16,11 +17,6 @@ const ReservationScreen = () => {
         setShowCalendar(Platform.OS === 'ios');
         setDate(currentDate);
     }
-
-    // const handleReservation = () => {
-    //     console.log({ campers, hikeIn, date, showCalendar });
-    //     setShowModal(!showModal)
-    // }
 
     //===== START: HANDLE RESERVATION Alert.alert() =====
     const handleReservation = () => {
@@ -43,6 +39,26 @@ const ReservationScreen = () => {
         setHikeIn(false);
         setDate(new Date());
         setShowCalendar(false);
+    }
+
+    const presentLocalNotification = async (reservationDate) => {
+        const sendNotification = () => {
+            Notifications.setNotificationHandler({
+                shouldShowAlert: true,
+                shouldPlaySound: true,
+                shouldSetBadge: true
+            });
+
+            Notifications.scheduleNotificationAsync({
+                content: {
+                    title: 'Your campsite Reservation Search.',
+                    body: `Search for ${reservationDate} requested.`
+                },
+                trigger: null
+            });
+        }
+
+        let permissions = await Notifications.getPermissionsAsync()
     }
 
     return (
