@@ -126,9 +126,9 @@ const LoginScreen = () => {
         <Tab.Navigator tabBarOptions={tabBarOptions}>
             <Tab.Screen 
                 name="Login"
-                component={ loginTab }
+                component={ LoginTab }
                 options={{
-                    tabBarIcon = (props) => {
+                    tabBarIcon: (props) => {
                         return(
                             <Icon
                                 name='sign-in'
@@ -143,7 +143,7 @@ const LoginScreen = () => {
                 name="Register"
                 component={ RegisterTab }
                 options={{
-                    tabBarIcon = (props) => {
+                    tabBarIcon: (props) => {
                         return(
                             <Icon
                                 name='user-plus'
