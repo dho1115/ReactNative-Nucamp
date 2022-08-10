@@ -21,6 +21,7 @@ import { fetchPromotions } from '../features/promotions/promotionsSlice';
 import { fetchComments } from '../features/comments/commentsSlice';
 import FavoritesScreen from './FavoritesScreen';
 import LoginScreen from './LoginScreen';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/core';
 
 
 const Drawer = createDrawerNavigator();
@@ -213,8 +214,9 @@ const LoginNavigator = () => {
             <Stack.Screen
                 name="Login"
                 component={ LoginScreen }
-                options={({ navigation }) => ({
-                    title: 'Favorites',
+                options={({ navigation, route }) => ({
+                    headerTitle: getFocusedRouteNameFromRoute(route),
+                    title: 'Login Screen Header.', //Login Screen Header
                     headerLeft: () => (
                         <Icon
                             name='sign-in'

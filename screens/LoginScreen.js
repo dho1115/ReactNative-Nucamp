@@ -31,14 +31,16 @@ const LoginTab = ({navigation}) => {
         //Retrieve login info IF 'remember me' was checked.
         SecureStore.getItemAsync('userinfo')
             .then(userData => {
+                console.log({ userData })
                 const userinfo = JSON.parse(userData);
+                console.log({ userinfo })
 
-                if (userInfo) {
+                if (userinfo) {
                     setUsername(userinfo.username);
                     setPassword(userinfo.password);
                     setRemember(true);
                 }
-            })
+            }).catch(error => console.error({error, errorCode: error.code, errorMessage: "Error from useEffect(SecurStore.getItemAsync): " + error.message}))
 
         return () => {
             
