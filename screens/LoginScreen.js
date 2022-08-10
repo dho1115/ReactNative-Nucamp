@@ -56,7 +56,6 @@ const LoginTab = ({navigation}) => {
                 containerStyle={styles.formInput}
                 leftIconContainerStyle={styles.formIcon}
             />
-
             <Input
                 placeholder='Password'
                 leftIcon={{ type: 'font-awesome', name: 'key' }}
@@ -65,7 +64,6 @@ const LoginTab = ({navigation}) => {
                 containerStyle={styles.formInput}
                 leftIconContainerStyle={styles.formIcon}
             />
-
             <CheckBox
                 title='Remember Me.'
                 center
@@ -118,10 +116,30 @@ const Tab = createBottomTabNavigator();
 const LoginScreen = () => {
     const tabBarOptions = {
         activeBackgroundColor: 'black',
-        inactiveBackgroundColor: 'seashell'
-        activeTintColor: 'crimson'
-        inactiveTintColor: 'silver'
+        inactiveBackgroundColor: 'seashell',
+        activeTintColor: 'crimson',
+        inactiveTintColor: 'silver',
+        labelStyle: { fontSize: 17 }
     }
+
+    return (
+        <Tab.Navigator tabBarOptions={tabBarOptions}>
+            <Tab.Screen 
+                name="Login"
+                component={ loginTab }
+                options={{
+                    tabBarIcon = (props) => {
+                        return(
+                            <Icon
+                                name='sign-in',
+                                type='font-awesome'
+                            />
+                        )
+                    }
+                }}
+            />
+        </Tab.Navigator>
+    )
 }
 
 
