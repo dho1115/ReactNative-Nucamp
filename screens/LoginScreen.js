@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { View, Button, StyleSheet, Text } from 'react-native';
-import { CheckBox, Input } from 'react-native-elements';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { CheckBox, Input, Button, Icon } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-
-const LoginScreen = () => {
+const LoginTab = ({navigation}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [remember, setRemember] = useState(false);
@@ -78,11 +78,52 @@ const LoginScreen = () => {
                     onPress={() => handleLogin()}
                     title='Login'
                     color='#5637DD'
+                    icon={
+                        <Icon
+                            name='sign-in'
+                            type='font-awesome'
+                            color='mediumspringgreen'
+                            iconStyle={{ marginRight: 9 }}
+                        />
+                    }
+                    buttonStyle={{ backgroundColor: 'fuchsia'}}
+                />
+            </View>
+            <View style={styles.formButton}>
+                <Button
+                    onPress={() => navigation.navigate('Register')}
+                    title='Register'
+                    type='clear'
+                    icon={
+                        <Icon
+                            name='user-plus'
+                            type='font-awesome'
+                            color='orangered'
+                            iconStyle={{ marginRight: 9 }}
+                        />
+                    }
+                    titleStyle={{ color: 'rosybrown'}}
                 />
             </View>
         </View>
     )
 }
+
+const RegisterTab = () => {
+    return <ScrollView></ScrollView>
+}
+
+const Tab = createBottomTabNavigator();
+
+const LoginScreen = () => {
+    const tabBarOptions = {
+        activeBackgroundColor: 'black',
+        inactiveBackgroundColor: 'seashell'
+        activeTintColor: 'crimson'
+        inactiveTintColor: 'silver'
+    }
+}
+
 
 const styles = StyleSheet.create({
     container: {
