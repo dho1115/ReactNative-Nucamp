@@ -131,8 +131,24 @@ const LoginScreen = () => {
                     tabBarIcon = (props) => {
                         return(
                             <Icon
-                                name='sign-in',
+                                name='sign-in'
                                 type='font-awesome'
+                                color={props.color}
+                            />
+                        )
+                    }
+                }}
+            />
+            <Tab.Screen 
+                name="Register"
+                component={ RegisterTab }
+                options={{
+                    tabBarIcon = (props) => {
+                        return(
+                            <Icon
+                                name='user-plus'
+                                type='font-awesome'
+                                color={props.color}
                             />
                         )
                     }
