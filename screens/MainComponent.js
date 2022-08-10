@@ -219,7 +219,9 @@ const LoginNavigator = () => {
                     title: 'Login Screen Header.', //Login Screen Header
                     headerLeft: () => (
                         <Icon
-                            name='sign-in'
+                            name={
+                                getFocusedRouteNameFromRoute(route) === 'Register' ? 'user-plus' : 'sign-in'
+                            }
                             type='font-awesome'
                             iconStyle={styles.stackIcon}
                             onPress={() => navigation.toggleDrawer()}
