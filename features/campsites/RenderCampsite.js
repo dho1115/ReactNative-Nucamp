@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { View, Text, StyleSheet, Modal, PanResponder, Alert } from "react-native";
+import { View, Text, StyleSheet, Modal, PanResponder, Alert, Share } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { baseUrl } from "../../shared/baseUrl";
 import * as Animatable from 'react-native-animatable'
@@ -51,6 +51,19 @@ const RenderCampsite = (props) => {
         }
     })
 
+    const shareCampsite = (title, message, url) => {
+        Share.share(
+            {
+                title,
+                message: `${title}: ${message} ${url}.`,
+                url
+            },
+            {
+                dialogTitle: 'Share' + title
+            }
+        )
+    }
+
     if (campsite) {
         console.log({ image: campsite.image })
         return(
@@ -90,6 +103,17 @@ const RenderCampsite = (props) => {
                             onPress={() => props.onShowModal()}
                         />
                         {/* ===== END: PENCIL ICON ===== */}
+
+                        {/* ===== START: SHARE ICON ===== */}
+                        <Icon
+                            name="share"
+                            type="font-awesome"
+                            color="#5637DD"
+                            raised
+                            reverse
+                            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)}
+                        />
+                        {/* ===== END: SHARE ICON ===== */}
                     </View>           
                 </Card>
            </Animatable.View>
