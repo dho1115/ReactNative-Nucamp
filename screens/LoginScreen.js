@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
 import { CheckBox, Input, Button, Icon } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as ImagePicker from 'expo-image-picker';
+import { baseUrl } from '../shared/baseUrl';
+import logo from '../assets/images/logo.png';
 
 const LoginTab = ({navigation}) => {
     const [username, setUsername] = useState("");
@@ -116,6 +119,7 @@ const RegisterTab = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [remember, setRemember] = useState(false);
+    const [imageUrl, setImageUrl] = useState(baseUrl + "images/logo.png");
 
     const handleRegister = () => {
         console.log({ username, password, firstName, lastName, email, remember });
@@ -135,7 +139,13 @@ const RegisterTab = () => {
     return ( 
         <ScrollView>
             <View style={styles.container}>
-                <Text>Hello, {username}.</Text>
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={{uri: imageUrl}}
+                        loadingIndicatorSource={logo}
+                        style={styles.image}
+                    />
+                </View>
                 <Input
                     placeholder='Username'
                     leftIcon={{ type: 'font-awesome', name: 'user-o'}}
@@ -190,7 +200,7 @@ const RegisterTab = () => {
                         color='#5637DD'
                         icon={
                             <Icon
-                                name='sign-in'
+                                name='user-plus'
                                 type='font-awesome'
                                 color='lightseagreen'
                                 iconStyle={{ marginRight: 9 }}
@@ -255,20 +265,23 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        margin: 20
+        margin: 9
     },
     formIcon: {
-        marginRight: 10
+        marginRight: 9
     },
     formInput: {
-        padding: 10
+        padding: 8,
+        height: 57
     },
     formCheckbox: {
-        margin: 10,
+        margin: 8,
         backgroundColor: null
     },
     formButton: {
-        margin: 40
+        margin: 20,
+        marginRight: 40,
+        marginLeft: 40
     }
 });
 
