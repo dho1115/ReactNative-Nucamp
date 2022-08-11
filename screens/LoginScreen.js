@@ -136,6 +136,21 @@ const RegisterTab = () => {
         }
     }
 
+    const getImageFromCamera = async () => {
+        const cameraPermission = await ImagePicker.requestCameraPermissionsAsync()
+
+        if (cameraPermission.status === 'granted') {
+            const capturedImage = await ImagePicker.launchCameraAsync({
+                allowsEditing: true,
+                aspect: [1, 1]
+            })
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                setImageUrl(capturedImage.uri);
+            }
+        }
+    }
+
     return ( 
         <ScrollView>
             <View style={styles.container}>
@@ -145,6 +160,7 @@ const RegisterTab = () => {
                         loadingIndicatorSource={logo}
                         style={styles.image}
                     />
+                    <Button title="camera" onPress={getImageFromCamera} />
                 </View>
                 <Input
                     placeholder='Username'
@@ -282,6 +298,17 @@ const styles = StyleSheet.create({
         margin: 20,
         marginRight: 40,
         marginLeft: 40
+    },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        margin: 10
+    },
+    image: {
+        width: 60,
+        height: 60
     }
 });
 
