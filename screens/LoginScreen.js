@@ -7,6 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { baseUrl } from '../shared/baseUrl';
 import logo from '../assets/images/logo.png';
 
+//===== START: Inside Login Screen/Component. =====
 const LoginTab = ({navigation}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -51,10 +52,11 @@ const LoginTab = ({navigation}) => {
     }, []);
 
     return (
+        //===== START: Create Login Form. =====
         <View style={styles.container}>
             <Text>Hello, {username}.</Text>
             <Input
-                placeholder='Username'
+                placeholder='Login Username'
                 leftIcon={{ type: 'font-awesome', name: 'user-o'}}
                 onChangeText={(text) => setUsername(text)}
                 value={username}
@@ -62,7 +64,7 @@ const LoginTab = ({navigation}) => {
                 leftIconContainerStyle={styles.formIcon}
             />
             <Input
-                placeholder='Password'
+                placeholder='Login Password'
                 leftIcon={{ type: 'font-awesome', name: 'key' }}
                 onChangeText={(text) => setPassword(text)}
                 value={password}
@@ -89,7 +91,7 @@ const LoginTab = ({navigation}) => {
                             iconStyle={{ marginRight: 9 }}
                         />
                     }
-                    buttonStyle={{ backgroundColor: 'fuchsia'}}
+                    buttonStyle={{ backgroundColor: 'fushia'}}
                 />
             </View>
             <View style={styles.formButton}>
@@ -109,9 +111,14 @@ const LoginTab = ({navigation}) => {
                 />
             </View>
         </View>
+        //===== END: Create Login Form. =====
     )
 }
+//===== END: Inside Login Screen/Component. =====
 
+
+
+//===== START: INSIDE Register Screen/Component. =====
 const RegisterTab = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -136,10 +143,19 @@ const RegisterTab = () => {
         }
     }
 
+    //START: CREATE FUNCTION TO BE CALLED WHEN CAMERA IS CLICKED.
+    /*
+        Steps to take a picture:
+        (1) Get permission via await ImagePicker.requestCameraPermissionAsync().
+        (2) Set up TWO scenarios if/when permission is granted:
+            (a) If the picture is taken: await ImagePicker.launchCameraAsync({ ...options here }).
+            (b) If the user cancels the picture after the camera is on but then changes their mind about taking the picture.
+    */
     const getImageFromCamera = async () => {
-        const cameraPermission = await ImagePicker.requestCameraPermissionsAsync()
+        const cameraPermission = await ImagePicker.requestCameraPermissionsAsync() //Get permission from app first.
 
         if (cameraPermission.status === 'granted') {
+            console.log("Camera Image has been granted.");
             const capturedImage = await ImagePicker.launchCameraAsync({
                 allowsEditing: true,
                 aspect: [1, 1]
@@ -150,18 +166,26 @@ const RegisterTab = () => {
             }
         }
     }
+    //END: CREATE FUNCTION TO BE CALLED WHEN CAMERA IS CLICKED.
 
     return ( 
         <ScrollView>
             <View style={styles.container}>
+                {/* START: ADD CONTAINER THAT WILL HOLD NUCAMP IMAGE AND CAMERA. */}
                 <View style={styles.imageContainer}>
+                    {/* The imageUrl is the NuCamp logo that will change to whatever image you take a picture with on the 'camera' */}
                     <Image
                         source={{uri: imageUrl}}
                         loadingIndicatorSource={logo}
                         style={styles.image}
                     />
-                    <Button title="camera" onPress={getImageFromCamera} />
+                    {/* START: ADD BUTTON FOR 'camera'. */}
+                    <Button title="camera" onPress={getImageFromCamera} buttonStyle={{backgroundColor: "maroon"}}/>
+                    {/* END: ADD BUTTON FOR 'camera'. */}
                 </View>
+                {/* END: ADD CONTAINER THAT WILL HOLD NUCAMP IMAGE AND CAMERA. */}
+
+                {/* START: REGISTER FORM. */}
                 <Input
                     placeholder='Username'
                     leftIcon={{ type: 'font-awesome', name: 'user-o'}}
@@ -210,36 +234,47 @@ const RegisterTab = () => {
                     containerStyle={styles.formCheckbox}
                 />
                 <View style={styles.formButton}>
+                {/* START: CREATE 'REGISTER NEW USER' BUTTON. THIS WILL BE ON THE REGISTER <STACK.SCREEN></STACK.SCREEN> WHICH CAN BE ACCESSED VIA LOGIN. */}
                     <Button
                         onPress={() => handleRegister()}
                         title='REGISTER NEW USER.'
-                        color='#5637DD'
+                        color='lightseagreen'
                         icon={
                             <Icon
-                                name='user-plus'
+                                name='star'
                                 type='font-awesome'
-                                color='lightseagreen'
+                                color='whitesmoke'
                                 iconStyle={{ marginRight: 9 }}
                             />
                         }
-                        buttonStyle={{ backgroundColor: 'magenta'}}
+                        buttonStyle={{ backgroundColor: 'crimson' }}
                     />
+                    {/* END: CREATE 'REGISTER NEW USER' BUTTON. */}
                 </View>
+                {/* END: REGISTER FORM */}
             </View>
         </ScrollView> 
     )
 }
+//===== END: INSIDE Register Screen/Component. =====
+
+
 
 const Tab = createBottomTabNavigator();
 
+
+
+//===== START: CREATE BOTTOM TABS (Login/Register). =====
 const LoginScreen = () => {
+    //=== Start: Styles for the bottom two tabs (Login/Register). ===
     const tabBarOptions = {
         activeBackgroundColor: 'black',
-        inactiveBackgroundColor: 'seashell',
-        activeTintColor: 'crimson',
-        inactiveTintColor: 'silver',
+        inactiveBackgroundColor: 'ivory',
+        activeTintColor: 'whitesmoke',
+        inactiveTintColor: 'lightgrey',
         labelStyle: { fontSize: 17 }
     }
+    //=== End: Styles for the bottom two tabs (Login/Register). ===
 
     return (
         <Tab.Navigator tabBarOptions={tabBarOptions}>
@@ -276,6 +311,7 @@ const LoginScreen = () => {
         </Tab.Navigator>
     )
 }
+//===== END: CREATE BOTTOM TABS (Login/Register). =====
 
 
 const styles = StyleSheet.create({
@@ -304,7 +340,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        margin: 10
+        margin: 10,
+        backgroundColor: 'lightseagreen'
     },
     image: {
         width: 60,

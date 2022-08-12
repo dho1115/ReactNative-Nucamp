@@ -33,7 +33,6 @@ const screenOptions = {
 }
 
 //===== START ALL STACK.NAVIGATORS & STACK.SCREENS. =====
-
 const HomeNavigator = () => {
     const Stack = createStackNavigator();
 
@@ -221,11 +220,11 @@ const LoginNavigator = () => {
                     headerLeft: () => (
                         <Icon
                             name={
-                                getFocusedRouteNameFromRoute(route) === 'Register' ? 'user-plus' : 'sign-in'
+                                getFocusedRouteNameFromRoute(route) === 'Register' ? 'user-plus' : 'sign-in' //getFocusedRouteNameFromRoute(route) returns either 'Register' or 'Login'.
                             }
                             type='font-awesome'
                             iconStyle={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() => navigation.toggleDrawer()} //opens and closes the left drawer.
                         />
                     )
                 })}
@@ -233,7 +232,6 @@ const LoginNavigator = () => {
         </Stack.Navigator>
     )
 }
-
 //===== END ALL STACK.NAVIGATORS & STACK.SCREENS. =====
 
 const CustomDrawerContent = (props) => (
@@ -318,10 +316,10 @@ const Main = () => {
                 drawerStyle={{ backgroundColor: 'lightseagreen' }}
             >
                 <Drawer.Screen
-                    name='Login'
+                    name='Register/Login'
                     component={ LoginNavigator }
                     options={{ 
-                        title: 'Login',
+                        title: 'Register/Login', //defaults to name if title absent.
                         drawerIcon: ({ color }) => (
                             <Icon
                                 name='sign-in'

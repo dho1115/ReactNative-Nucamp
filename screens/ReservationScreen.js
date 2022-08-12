@@ -35,7 +35,7 @@ const ReservationScreen = () => {
             { cancelable: false }
 
         )
-    }
+    } //Called inside the <Button /> below.
     //===== END: HANDLE RESERVATION Alert.alert() =====
 
     const resetForm = () => {
@@ -73,7 +73,7 @@ const ReservationScreen = () => {
         if (permissions.granted) {
             sendNotification()
         }
-    }
+    } //Called inside the Alert.alert() that is inside the body of handleReservation.
 
     return (
         <ScrollView>
