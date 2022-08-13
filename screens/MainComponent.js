@@ -262,21 +262,43 @@ const Main = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        NetInfo.fetch()
-            .then(connectionInfo => {
-                Platform.OS === 'ios' ?
-                    Alert.alert("Initial network connectivity type: ", connectionInfo.type)
-                    :
-                    ToastAndroid.show('Initial network connectivity type: ' + connectionInfo.type, ToastAndroid.LONG)
-            })
+        //===== OLD FETCH CODE. =====
+        // NetInfo.fetch()
+        //     .then(connectionInfo => {
+        //         Platform.OS === 'ios' ?
+        //             Alert.alert("Initial network connectivity type: ", connectionInfo.type)
+        //             :
+        //             ToastAndroid.show('Initial network connectivity type: ' + connectionInfo.type, ToastAndroid.LONG)
+        //     })
         
-        const unsubscribeNetInfo = NetInfo.addEventListener(
-            connectionInfo => {
-                handleConnectivityChange(connectionInfo);
-            }
-        )
+        // const unsubscribeNetInfo = NetInfo.addEventListener(
+        //     connectionInfo => {
+        //         handleConnectivityChange(connectionInfo);
+        //     }
+        // )
+        //===== OLD FETCH CODE. =====
 
-        return unsubscribeNetInfo
+        //===== START: NEW ASYNC CODE (CLASS ASSIGNMENT). =====
+        const showNetInfo = async () => {
+            const connectionInfo = await NetInfo.fetch()
+    
+            Platform.OS === 'ios' ?
+                Alert.alert("Initial network connectivity type: ", connectionInfo.type)
+                :
+                ToastAndroid.show('Initial network connectivity type: ' + connectionInfo.type, ToastAndroid.LONG)
+            
+            const unsubscribeNetInfo = NetInfo.addEventListener(
+                connectionInfo => {
+                    handleConnectivityChange(connectionInfo);
+                }
+            )
+
+            return unsubscribeNetInfo;
+        }
+        
+        showNetInfo();
+        //===== END: NEW ASYNC CODE (CLASS ASSIGNMENT). =====
+
     }, []);
 
     const handleConnectivityChange = connectionInfo => {
@@ -305,7 +327,6 @@ const Main = () => {
             :
             ToastAndroid.show(connectionMsg, ToastAndroid.LONG)
     }
-
 
     return (
         <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>        

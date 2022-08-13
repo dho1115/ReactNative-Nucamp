@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as ImagePicker from 'expo-image-picker';
 import { baseUrl } from '../shared/baseUrl';
 import logo from '../assets/images/logo.png';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 //===== START: Inside Login Screen/Component. =====
 const LoginTab = ({navigation}) => {
@@ -116,6 +117,7 @@ const LoginTab = ({navigation}) => {
 }
 //===== END: Inside Login Screen/Component. =====
 
+console.log({ ImageManipulator })
 
 
 //===== START: INSIDE Register Screen/Component. =====
@@ -160,13 +162,57 @@ const RegisterTab = () => {
                 allowsEditing: true,
                 aspect: [1, 1]
             })
+
             if (!capturedImage.cancelled) {
                 console.log(capturedImage);
-                setImageUrl(capturedImage.uri);
+                // setImageUrl(capturedImage.uri);
+                //===== START: Call processImage =====
+                processImage(capturedImage.uri)
+                //===== END: ProcessImage =====
             }
         }
     }
     //END: CREATE FUNCTION TO BE CALLED WHEN CAMERA IS CLICKED.
+
+    //START: CREATE FUNCTION CALLED 'getImageFromGallery'.
+    const getImageFromGallery = async () => {
+        const mediaLibraryPermissions = await ImagePicker.requestMediaLibraryPermissionsAsync() //Get permission from app first.
+
+        if (mediaLibraryPermissions.status === 'granted') {
+            console.log("Media Library has been granted.");
+            const capturedImage = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [1, 1]
+            })
+            console.log("If Media Library captured image is NOT cancelled, continue.");
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                // setImageUrl(capturedImage.uri);
+                //===== START: Call processImage =====
+                processImage(capturedImage.uri)
+                //===== END: ProcessImage =====
+            }
+        }
+    }
+    //END: CREATE FUNCTION CALLED 'getImageFromGallery'.
+
+    //===== START: processImage FUNCTION. =====
+    const processImage = async (imgUri) => {
+        const processedImage = await ImageManipulator.manipulateAsync(
+            imgUri,
+            [
+                { resize: { width: 400 } }
+            ],
+            { format: "png" }
+        )
+
+        setImageUrl(processedImage.uri)
+
+        console.log({ imageUrl })
+    }
+    //===== END: processImage FUNCTION. =====
+
+    console.log({ imageUrl })
 
     return ( 
         <ScrollView>
@@ -182,6 +228,10 @@ const RegisterTab = () => {
                     {/* START: ADD BUTTON FOR 'camera'. */}
                     <Button title="camera" onPress={getImageFromCamera} buttonStyle={{backgroundColor: "maroon"}}/>
                     {/* END: ADD BUTTON FOR 'camera'. */}
+
+                    {/* START: ADD BUTTON FOR 'gallery'. */}
+                    <Button title="gallery" onPress={getImageFromGallery} buttonStyle={{backgroundColor: "crimson"}}/>
+                    {/* END: ADD BUTTON FOR 'gallery'. */}
                 </View>
                 {/* END: ADD CONTAINER THAT WILL HOLD NUCAMP IMAGE AND CAMERA. */}
 
